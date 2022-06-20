@@ -1,0 +1,13 @@
+D:\Enlab\ToDoApplication\ApplicationTier\ToDoApp.Domain\bin\Debug\netcoreapp3.1\ToDoApp.Domain.deps.json
+D:\Enlab\ToDoApplication\ApplicationTier\ToDoApp.Domain\bin\Debug\netcoreapp3.1\ToDoApp.Domain.runtimeconfig.json
+D:\Enlab\ToDoApplication\ApplicationTier\ToDoApp.Domain\bin\Debug\netcoreapp3.1\ToDoApp.Domain.runtimeconfig.dev.json
+D:\Enlab\ToDoApplication\ApplicationTier\ToDoApp.Domain\bin\Debug\netcoreapp3.1\ToDoApp.Domain.dll
+D:\Enlab\ToDoApplication\ApplicationTier\ToDoApp.Domain\bin\Debug\netcoreapp3.1\ToDoApp.Domain.pdb
+D:\Enlab\ToDoApplication\ApplicationTier\ToDoApp.Domain\obj\Debug\netcoreapp3.1\ToDoApp.Domain.csproj.AssemblyReference.cache
+D:\Enlab\ToDoApplication\ApplicationTier\ToDoApp.Domain\obj\Debug\netcoreapp3.1\ToDoApp.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Enlab\ToDoApplication\ApplicationTier\ToDoApp.Domain\obj\Debug\netcoreapp3.1\ToDoApp.Domain.AssemblyInfoInputs.cache
+D:\Enlab\ToDoApplication\ApplicationTier\ToDoApp.Domain\obj\Debug\netcoreapp3.1\ToDoApp.Domain.AssemblyInfo.cs
+D:\Enlab\ToDoApplication\ApplicationTier\ToDoApp.Domain\obj\Debug\netcoreapp3.1\ToDoApp.Domain.csproj.CoreCompileInputs.cache
+D:\Enlab\ToDoApplication\ApplicationTier\ToDoApp.Domain\obj\Debug\netcoreapp3.1\ToDoApp.Domain.dll
+D:\Enlab\ToDoApplication\ApplicationTier\ToDoApp.Domain\obj\Debug\netcoreapp3.1\ToDoApp.Domain.pdb
+D:\Enlab\ToDoApplication\ApplicationTier\ToDoApp.Domain\obj\Debug\netcoreapp3.1\ToDoApp.Domain.genruntimeconfig.cache

@@ -1,0 +1,34 @@
+﻿** Highlights
+     Tables that will be rebuilt
+       None
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       None
+
+** User actions
+     Create
+       [dbo].[Assignment] (Table)
+       [dbo].[Attackment] (Table)
+       [dbo].[Board] (Table)
+       [dbo].[BoardMember] (Table)
+       [dbo].[Label] (Table)
+       [dbo].[ListTask] (Table)
+       [dbo].[Task] (Table)
+       [dbo].[TaskLabel] (Table)
+       [dbo].[User] (Table)
+       [dbo].[fk_id_usertask] (Foreign Key)
+       [dbo].[fk_id_task] (Foreign Key)
+       [dbo].[fk_id_taskattachment] (Foreign Key)
+       [dbo].[fk_id_user] (Foreign Key)
+       [dbo].[fk_id_board] (Foreign Key)
+       [dbo].[fk_id_boardlisttask] (Foreign Key)
+       [dbo].[fk_id_listtask] (Foreign Key)
+       [dbo].[fk_id_tasklabel] (Foreign Key)
+       [dbo].[fk_id_labeltask] (Foreign Key)
+       [dbo].[vwLabels] (View)
+       [dbo].[spGetLabels] (Procedure)
+
+** Supporting actions

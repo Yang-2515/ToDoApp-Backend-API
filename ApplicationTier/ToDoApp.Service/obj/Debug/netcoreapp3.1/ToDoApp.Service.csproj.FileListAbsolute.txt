@@ -1,0 +1,13 @@
+D:\Enlab\ToDoApplication\ApplicationTier\ToDoApp.Service\bin\Debug\netcoreapp3.1\ToDoApp.Service.deps.json
+D:\Enlab\ToDoApplication\ApplicationTier\ToDoApp.Service\bin\Debug\netcoreapp3.1\ToDoApp.Service.dll
+D:\Enlab\ToDoApplication\ApplicationTier\ToDoApp.Service\bin\Debug\netcoreapp3.1\ToDoApp.Service.pdb
+D:\Enlab\ToDoApplication\ApplicationTier\ToDoApp.Service\bin\Debug\netcoreapp3.1\ToDoApp.Domain.dll
+D:\Enlab\ToDoApplication\ApplicationTier\ToDoApp.Service\bin\Debug\netcoreapp3.1\ToDoApp.Domain.pdb
+D:\Enlab\ToDoApplication\ApplicationTier\ToDoApp.Service\obj\Debug\netcoreapp3.1\ToDoApp.Service.csproj.AssemblyReference.cache
+D:\Enlab\ToDoApplication\ApplicationTier\ToDoApp.Service\obj\Debug\netcoreapp3.1\ToDoApp.Service.GeneratedMSBuildEditorConfig.editorconfig
+D:\Enlab\ToDoApplication\ApplicationTier\ToDoApp.Service\obj\Debug\netcoreapp3.1\ToDoApp.Service.AssemblyInfoInputs.cache
+D:\Enlab\ToDoApplication\ApplicationTier\ToDoApp.Service\obj\Debug\netcoreapp3.1\ToDoApp.Service.AssemblyInfo.cs
+D:\Enlab\ToDoApplication\ApplicationTier\ToDoApp.Service\obj\Debug\netcoreapp3.1\ToDoApp.Service.csproj.CoreCompileInputs.cache
+D:\Enlab\ToDoApplication\ApplicationTier\ToDoApp.Service\obj\Debug\netcoreapp3.1\ToDoApp.Service.csproj.CopyComplete
+D:\Enlab\ToDoApplication\ApplicationTier\ToDoApp.Service\obj\Debug\netcoreapp3.1\ToDoApp.Service.dll
+D:\Enlab\ToDoApplication\ApplicationTier\ToDoApp.Service\obj\Debug\netcoreapp3.1\ToDoApp.Service.pdb

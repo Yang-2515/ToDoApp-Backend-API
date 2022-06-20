@@ -1,0 +1,3 @@
+is_global = true
+build_property.RootNamespace = ToDoApp.Domain
+build_property.ProjectDir = D:\Enlab\ToDoApplication\ApplicationTier\ToDoApp.Domain\

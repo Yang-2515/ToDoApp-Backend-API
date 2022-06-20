@@ -1,0 +1,10 @@
+D:\Enlab\ToDoApplication\DataTier\ToDoApp.SqlServer\bin\Debug\ToDoApp.SqlServer.dacpac
+D:\Enlab\ToDoApplication\DataTier\ToDoApp.SqlServer\bin\Debug\ToDoApp.SqlServer.dll
+D:\Enlab\ToDoApplication\DataTier\ToDoApp.SqlServer\bin\Debug\ToDoApp.SqlServer.pdb
+D:\Enlab\ToDoApplication\DataTier\ToDoApp.SqlServer\obj\Debug\ToDoApp.SqlServer.sqlproj.AssemblyReference.cache
+D:\Enlab\ToDoApplication\DataTier\ToDoApp.SqlServer\obj\Debug\ToDoApp.SqlServer.dll
+D:\Enlab\ToDoApplication\DataTier\ToDoApp.SqlServer\obj\Debug\ToDoApp.SqlServer.pdb
+D:\Enlab\ToDoApplication\DataTier\ToDoApp.SqlServer\obj\Debug\Model.xml
+D:\Enlab\ToDoApplication\DataTier\ToDoApp.SqlServer\obj\Debug\refactor.xml
+D:\Enlab\ToDoApplication\DataTier\ToDoApp.SqlServer\obj\Debug\postdeploy.sql
+D:\Enlab\ToDoApplication\DataTier\ToDoApp.SqlServer\obj\Debug\predeploy.sql
