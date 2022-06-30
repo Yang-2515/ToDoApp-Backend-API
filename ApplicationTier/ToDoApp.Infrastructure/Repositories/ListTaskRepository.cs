@@ -20,9 +20,9 @@ namespace ToDoApp.Infrastructure.Repositories
             return await Entities.Where(c => c.IsDelete == false).ToListAsync();
         }
 
-        public async Task<IList<ListTask>> GetListTasksByBoardIdAsync(int boardId)
+        public async Task<List<ListTask>> GetListTasksByBoardIdAsync(int boardId)
         {
-            return await Entities.Where(c => c.BoardId == boardId).ToListAsync();
+            return await Entities.Where(c => c.BoardId == boardId && c.IsDelete == false).ToListAsync();
         }
     }
 }

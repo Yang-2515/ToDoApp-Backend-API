@@ -12,12 +12,9 @@ namespace ToDoApp.Domain.Interfaces.Services
     public interface ITaskService
     {
         Task Delete(int taskId);
-        Task<TaskResponse> GetOne(int taskId);
-        Task<IList<TaskResponse>> GetAll();
+        Task<TaskViewModel> GetOne(int taskId);
         Task Update(TaskRequest task);
         Task Add(TaskRequest task);
-        Task<IList<TaskResponse>> GetTasksByListTaskIdAsync(int listTaskId);
-        Task<IList<TaskResponse>> GetSubTasksByTaskIdAsync(int taskId);
         Task UpdateListTaskId(TaskRequest task);
     }
 }

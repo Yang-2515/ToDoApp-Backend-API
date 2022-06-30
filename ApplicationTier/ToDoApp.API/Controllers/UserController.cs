@@ -59,18 +59,6 @@ namespace ToDoApp.API.Controllers
             await _userService.Delete(id);
             return Ok();
         }
-        [HttpGet("~/api/task/{taskId:int}/users")]
-        [ProducesResponseType(typeof(IList<UserResponse>), (int)HttpStatusCode.OK)]
-        public async Task<List<UserResponse>> GetUsersByTaskId([FromRoute] int taskId)
-        {
-            return await _userService.GetUsersByTaskId(taskId);
-        }
-        [HttpGet("~/api/board/{boardId:int}/users")]
-        [ProducesResponseType(typeof(IList<UserResponse>), (int)HttpStatusCode.OK)]
-        public async Task<List<UserResponse>> GetUsersByBoardId([FromRoute] int boardId)
-        {
-            return await _userService.GetUsersByBoardId(boardId);
-        }
 
         #endregion
     }

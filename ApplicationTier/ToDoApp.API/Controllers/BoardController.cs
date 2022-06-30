@@ -6,6 +6,8 @@ using System.Net;
 using System.Threading.Tasks;
 using ToDoApp.Domain.Interfaces.Services;
 using ToDoApp.Domain.Models.Board;
+using ToDoApp.Domain.Models.BoardMember;
+using ToDoApp.Domain.Models.ListTask;
 
 namespace ToDoApp.API.Controllers
 {
@@ -14,9 +16,15 @@ namespace ToDoApp.API.Controllers
     public class BoardController : ControllerBase
     {
         private readonly IBoardService _boardService;
-        public BoardController(IBoardService boardService)
+        private readonly IListTaskService _listTaskService;
+        private readonly IBoardMemberService _boardMemberService;
+        public BoardController(IBoardService boardService,
+            IListTaskService listTaskService,
+            IBoardMemberService boardMemberService)
         {
             _boardService = boardService;
+            _listTaskService = listTaskService;
+            _boardMemberService = boardMemberService;
         }
 
         #region CRUD
@@ -37,7 +45,7 @@ namespace ToDoApp.API.Controllers
         }
 
         [HttpGet("{id:int}")]
-        [ProducesResponseType(typeof(BoardResponse), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(BoardViewModel), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetOne([FromRoute] int id)
         {
             return Ok(await _boardService.GetOne(id));
@@ -59,18 +67,20 @@ namespace ToDoApp.API.Controllers
             return Ok();
         }
 
-        [HttpGet("manage/{manageId:int}")]
-        [ProducesResponseType(typeof(IList<BoardResponse>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetBoardsByManageId(int manageId)
+        [HttpPost("boardMember")]
+        [ProducesResponseType(typeof(void), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> AddBoardMember([FromBody] BoardMemberRequest boardMember)
         {
-            return Ok(await _boardService.GetBoardsByManageId(manageId));
+            await _boardMemberService.Add(boardMember);
+            return Ok();
         }
 
-        [HttpGet("~/api/user/{userId:int}/boards")]
-        [ProducesResponseType(typeof(IList<BoardResponse>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetBoardsByUserIdAsync(int userId)
+        [HttpDelete("boardMember")]
+        [ProducesResponseType(typeof(void), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> DeleteBoardMember([FromQuery]int userId, [FromQuery] int boardId)
         {
-            return Ok(await _boardService.GetBoardsByUserIdAsync(userId));
+            await _boardMemberService.DeleteByUserIdAndBoardTd(userId, boardId);
+            return Ok();
         }
 
         #endregion

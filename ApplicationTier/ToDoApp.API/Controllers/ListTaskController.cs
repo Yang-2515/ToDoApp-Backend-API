@@ -59,13 +59,6 @@ namespace ToDoApp.API.Controllers
             return Ok();
         }
 
-        [HttpGet("~/api/board/{boardId:int}/listTasks")]
-        [ProducesResponseType(typeof(IList<ListTaskResponse>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetBoardsByUserIdAsync(int boardId)
-        {
-            return Ok(await _listTaskService.GetListTasksByBoardIdAsync(boardId));
-        }
-
         #endregion
     }
 }

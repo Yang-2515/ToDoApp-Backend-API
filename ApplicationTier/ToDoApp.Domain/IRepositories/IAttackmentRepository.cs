@@ -9,6 +9,6 @@ namespace ToDoApp.Domain.IRepositories
 {
     public interface IAttackmentRepository: IRepository<Attackment>
     {
-        Task<IList<Attackment>> GetAttackmentsByTaskId(int taskId);
+        Task<List<Attackment>> GetAttackmentsByTaskId(int taskId);
     }
 }

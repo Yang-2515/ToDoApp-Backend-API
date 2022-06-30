@@ -9,7 +9,5 @@ namespace ToDoApp.Domain.Models.Attackment
     public class AttackmentResponse : EntityBaseId<int>
     {
         public string LinkFile { get; set; }
-        public int TaskId { get; set; }
-        public string Task { get; set; }
     }
 }

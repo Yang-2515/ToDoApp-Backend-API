@@ -5,7 +5,10 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using ToDoApp.Domain.Interfaces.Services;
+using ToDoApp.Domain.Models.Assignment;
+using ToDoApp.Domain.Models.Attackment;
 using ToDoApp.Domain.Models.Task;
+using ToDoApp.Domain.Models.TaskLabel;
 
 namespace ToDoApp.API.Controllers
 {
@@ -15,19 +18,21 @@ namespace ToDoApp.API.Controllers
     public class TaskController : ControllerBase
     {
         private readonly ITaskService _taskService;
-        public TaskController(ITaskService taskService)
+        private readonly IAssignmentService _assignmentService;
+        private readonly IAttackmentService _attackmentService;
+        private readonly ITaskLabelService _taskLabelService;
+        public TaskController(ITaskService taskService,
+            IAssignmentService assignmentService,
+            IAttackmentService attackmentService,
+            ITaskLabelService taskLabelService)
         {
             _taskService = taskService;
+            _assignmentService = assignmentService;
+            _attackmentService = attackmentService;
+            _taskLabelService = taskLabelService;
         }
 
         #region CRUD
-
-        [HttpGet]
-        [ProducesResponseType(typeof(IList<TaskResponse>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetAll()
-        {
-            return Ok(await _taskService.GetAll());
-        }
 
         [HttpPut]
         [ProducesResponseType(typeof(void), (int)HttpStatusCode.OK)]
@@ -60,20 +65,6 @@ namespace ToDoApp.API.Controllers
             return Ok();
         }
 
-        [HttpGet("~/api/listTask/{listTaskId:int}/tasks")]
-        [ProducesResponseType(typeof(IList<TaskResponse>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetTasksByListTaskIdAsync(int listTaskId)
-        {
-            return Ok(await _taskService.GetTasksByListTaskIdAsync(listTaskId));
-        }
-
-        [HttpGet("~/api/task/{taskId:int}/subTasks")]
-        [ProducesResponseType(typeof(IList<TaskResponse>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetSubTasksByTaskIdAsync(int taskId)
-        {
-            return Ok(await _taskService.GetSubTasksByTaskIdAsync(taskId));
-        }
-
         [HttpPatch("")]
         [ProducesResponseType(typeof(void), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> UpdateListTaskId([FromBody] TaskRequest task)
@@ -81,7 +72,53 @@ namespace ToDoApp.API.Controllers
             await _taskService.UpdateListTaskId(task);
             return Ok();
         }
+        [HttpPost("assignment")]
+        [ProducesResponseType(typeof(void), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> AddAssignment([FromBody] AssignmentRequest assignment)
+        {
+            await _assignmentService.Add(assignment);
+            return Ok();
+        }
 
+        [HttpDelete("assignment")]
+        [ProducesResponseType(typeof(void), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> DeleteAssignment([FromQuery] int userId, [FromQuery] int taskId)
+        {
+            await _assignmentService.DeleteByUserIdAndTaskTd(userId, taskId);
+            return Ok();
+        }
+
+        [HttpPost("attackment")]
+        [ProducesResponseType(typeof(void), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> AddAttackment([FromBody] AttackmentRequest assignment)
+        {
+            await _attackmentService.Add(assignment);
+            return Ok();
+        }
+
+        [HttpDelete("attackment")]
+        [ProducesResponseType(typeof(void), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> DeleteAttackment([FromQuery] int id)
+        {
+            await _attackmentService.Delete(id);
+            return Ok();
+        }
+
+        [HttpPost("taskLabel")]
+        [ProducesResponseType(typeof(void), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> AddLabel([FromBody] TaskLabelRequest taskLabel)
+        {
+            await _taskLabelService.Add(taskLabel);
+            return Ok();
+        }
+
+        [HttpDelete("taskLabel")]
+        [ProducesResponseType(typeof(void), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> DeleteLabel([FromQuery] int taskId, [FromQuery] int labelId)
+        {
+            await _taskLabelService.DeleteByTaskIdAndLabelId(taskId, labelId);
+            return Ok();
+        }
         #endregion
     }
 }

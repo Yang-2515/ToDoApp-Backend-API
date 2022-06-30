@@ -23,14 +23,14 @@ namespace ToDoApp.Infrastructure.Repositories
             return await Entities.Where(c => c.IsDelete == false).ToListAsync();
         }
 
-        public async Task<IList<TaskEntity>> GetSubTasksByTaskIdAsync(int taskId)
+        public async Task<List<TaskEntity>> GetSubTasksByTaskIdAsync(int taskId)
         {
-            return await Entities.Where(c => c.ParentId == taskId).ToListAsync();
+            return await Entities.Where(c => c.ParentId == taskId && c.IsDelete == false).ToListAsync();
         }
 
-        public async Task<IList<TaskEntity>> GetTasksByListTaskIdAsync(int listTaskId)
+        public async Task<List<TaskEntity>> GetTasksByListTaskIdAsync(int listTaskId)
         {
-            return await Entities.Where(c => c.ListTaskId == listTaskId).ToListAsync();
+            return await Entities.Where(c => c.ListTaskId == listTaskId && c.IsDelete == false).ToListAsync();
         }
     }
 }

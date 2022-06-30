@@ -22,7 +22,7 @@ namespace ToDoApp.Infrastructure.Repositories
 
         public async Task<IList<Assignment>> GetAssignmentsByTaskId(int taskId)
         {
-            return await Entities.Where(c => c.TaskId == taskId).ToListAsync();
+            return await Entities.Where(c => c.TaskId == taskId && c.IsDelete == false).ToListAsync();
         }
         public async Task<Assignment> FindAssignmentByUserIdAndTaskIdAsync(int userId, int taskId)
         {

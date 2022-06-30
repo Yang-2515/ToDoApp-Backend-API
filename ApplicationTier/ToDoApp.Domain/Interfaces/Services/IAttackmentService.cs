@@ -10,9 +10,7 @@ namespace ToDoApp.Domain.Interfaces.Services
 {
     public interface IAttackmentService
     {
-        Task<IList<AttackmentResponse>> GetAttackmentsByTaskId(int taskId);
         Task Add(AttackmentRequest attackmentInput);
         Task Delete(int attackmentId);
-        Task<AttackmentResponse> GetOne(int attackmentId);
     }
 }

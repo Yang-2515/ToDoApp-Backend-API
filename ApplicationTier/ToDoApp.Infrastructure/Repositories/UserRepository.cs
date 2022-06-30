@@ -29,7 +29,7 @@ namespace ToDoApp.Infrastructure.Repositories
         public async Task<List<User>> GetUsersByBoardId(int boardId)
         {
             var query = from user in await GetAllAsync()
-                        join boardMember in _boardMemberRepository.GetAllAsync().Result.Where(c => c.BoardId == boardId).ToList() on user.Id equals boardMember.User.Id
+                        join boardMember in _boardMemberRepository.GetAllAsync().Result.Where(c => c.BoardId == boardId ).ToList() on user.Id equals boardMember.User.Id
                         select user;
             return query.ToList();
         }

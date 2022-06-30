@@ -10,12 +10,10 @@ namespace ToDoApp.Domain.Interfaces.Services
 {
     public interface IBoardService
     {
-        Task<IList<BoardResponse>> GetAll();
+        Task<List<BoardResponse>> GetAll();
         Task Add(BoardRequest boardInput);
         Task Delete(int boardId);
-        Task<BoardResponse> GetOne(int boardId);
+        Task<BoardViewModel> GetOne(int boardId);
         Task Update(BoardRequest boardInput);
-        Task<IList<BoardResponse>> GetBoardsByManageId(int manageId);
-        Task<List<BoardResponse>> GetBoardsByUserIdAsync(int userId);
     }
 }

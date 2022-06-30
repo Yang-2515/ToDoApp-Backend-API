@@ -8,6 +8,7 @@ using ToDoApp.Domain.Interfaces;
 using ToDoApp.Domain.Interfaces.Services;
 using ToDoApp.Domain.IRepositories;
 using ToDoApp.Domain.Models.Board;
+using ToDoApp.Domain.Models.ListTask;
 using Task = System.Threading.Tasks.Task;
 
 namespace ToDoApp.Service
@@ -18,14 +19,17 @@ namespace ToDoApp.Service
         private readonly IUnitOfWork _unitOfWork;
         private readonly IBoardRepository _boardRepository;
         private readonly IBoardMemberRepository _boardMemberRepository;
+        private readonly IListTaskRepository _listTaskRepository;
         public BoardService(IUnitOfWork unitOfWork,
             IBoardRepository boardRepository,
             IBoardMemberRepository boardMemberRepository,
+            IListTaskRepository listTaskRepository,
             IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _boardRepository = boardRepository;
             _boardMemberRepository = boardMemberRepository;
+            _listTaskRepository = listTaskRepository;
             _mapper = mapper;
         }
         public async Task Add(BoardRequest boardInput)
@@ -74,7 +78,7 @@ namespace ToDoApp.Service
             }
         }
 
-        public async Task<IList<BoardResponse>> GetAll()
+        public async Task<List<BoardResponse>> GetAll()
         {
             List<BoardResponse> boardResponses = new List<BoardResponse>();
             var list = await _boardRepository.GetAllAsync();
@@ -87,38 +91,14 @@ namespace ToDoApp.Service
             return boardResponses;
         }
 
-        public async Task<IList<BoardResponse>> GetBoardsByManageId(int manageId)
+        public async Task<BoardViewModel> GetOne(int boardId)
         {
-            List<BoardResponse> boardResponses = new List<BoardResponse>();
-            var list = await _boardRepository.GetBoardsByManageId(manageId);
-            foreach (var item in list)
-            {
-                var board = _mapper.Map<Board, BoardResponse>(item);
-                board.Manage = item.Manage == null ? "" : item.Manage.Name;
-                boardResponses.Add(board);
-            }
-            return boardResponses;
-        }
-
-        public async Task<List<BoardResponse>> GetBoardsByUserIdAsync(int userId)
-        {
-            List<BoardResponse> boardResponses = new List<BoardResponse>();
-            var list = await _boardRepository.GetBoardsByUserIdAsync(userId);
-            foreach (var item in list)
-            {
-                var board = _mapper.Map<Board, BoardResponse>(item);
-                board.Manage = item.Manage == null ? "" : item.Manage.Name;
-                boardResponses.Add(board);
-            }
-            return boardResponses;
-        }
-
-        public async Task<BoardResponse> GetOne(int boardId)
-        {
+            BoardViewModel boardViewModel = new BoardViewModel();
             var board = await _boardRepository.FindAsync(boardId);
-            var boardResponses = _mapper.Map<Board, BoardResponse>(board);
-            boardResponses.Manage = board.Manage == null ? "" : board.Manage.Name;
-            return boardResponses;
+            boardViewModel.Board = _mapper.Map<Board, BoardResponse>(board);
+            boardViewModel.ListTasks = _mapper.Map<List<ListTask>, List<ListTaskDetail>>(await _listTaskRepository.GetListTasksByBoardIdAsync(boardId));
+            boardViewModel.Board.Manage = board.Manage == null ? "" : board.Manage.Name;
+            return boardViewModel;
         }
 
         public async Task Update(BoardRequest boardInput)

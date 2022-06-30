@@ -1,13 +1,15 @@
 ﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using ToDoApp.Domain.Entities;
 using ToDoApp.Domain.Interfaces;
 using ToDoApp.Domain.Interfaces.Services;
 using ToDoApp.Domain.IRepositories;
+using ToDoApp.Domain.Models.Attackment;
+using ToDoApp.Domain.Models.Label;
 using ToDoApp.Domain.Models.Task;
+using ToDoApp.Domain.Models.User;
 using Task = System.Threading.Tasks.Task;
 using TaskEntity = ToDoApp.Domain.Entities.Task;
 
@@ -17,13 +19,22 @@ namespace ToDoApp.Service
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ITaskRepository _taskRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly ILabelRepository _labelRepository;
+        private readonly IAttackmentRepository _attackmentRepository;
         private readonly IMapper _mapper;
         public TaskService(IUnitOfWork unitOfWork,
             ITaskRepository taskRepository,
+            IUserRepository userRepository,
+            ILabelRepository labelRepository,
+            IAttackmentRepository attackmentRepository,
             IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _taskRepository = taskRepository;
+            _userRepository = userRepository;
+            _labelRepository = labelRepository;
+            _attackmentRepository = attackmentRepository;
             _mapper = mapper;
         }
         public async Task Add(TaskRequest taskInput)
@@ -69,51 +80,16 @@ namespace ToDoApp.Service
             }
         }
 
-        public async Task<IList<TaskResponse>> GetAll()
-        {
-            List<TaskResponse> taskResponses = new List<TaskResponse>();
-            var list = await _taskRepository.GetAllAsync();
-            foreach (var item in list)
-            {
-                var task = _mapper.Map<TaskEntity, TaskResponse>(item);
-                task.ListTask = item.ListTask == null ? "" : item.ListTask.Name;
-                taskResponses.Add(task);
-            }
-            return taskResponses;
-        }
-
-        public async Task<TaskResponse> GetOne(int taskId)
+        public async Task<TaskViewModel> GetOne(int taskId)
         {
             var task = await _taskRepository.FindAsync(taskId);
-            var taskResponse = _mapper.Map<TaskEntity, TaskResponse>(task);
-            taskResponse.ListTask = task.ListTask == null ? "" : task.ListTask.Name;
-            return taskResponse;
-        }
-
-        public async Task<IList<TaskResponse>> GetSubTasksByTaskIdAsync(int taskId)
-        {
-            List<TaskResponse> taskResponses = new List<TaskResponse>();
-            var list = await _taskRepository.GetSubTasksByTaskIdAsync(taskId);
-            foreach (var item in list)
-            {
-                var task = _mapper.Map<TaskEntity, TaskResponse>(item);
-                task.ListTask = item.ListTask == null ? "" : item.ListTask.Name;
-                taskResponses.Add(task);
-            }
-            return taskResponses;
-        }
-
-        public async Task<IList<TaskResponse>> GetTasksByListTaskIdAsync(int listTaskId)
-        {
-            List<TaskResponse> taskResponses = new List<TaskResponse>();
-            var list = await _taskRepository.GetTasksByListTaskIdAsync(listTaskId);
-            foreach (var item in list)
-            {
-                var task = _mapper.Map<TaskEntity, TaskResponse>(item);
-                task.ListTask = item.ListTask == null ? "" : item.ListTask.Name;
-                taskResponses.Add(task);
-            }
-            return taskResponses;
+            var taskViewModel = _mapper.Map<TaskEntity, TaskViewModel>(task);
+            taskViewModel.SubTasks = _mapper.Map < List<TaskEntity>, List<TaskDetail> > (await _taskRepository.GetSubTasksByTaskIdAsync(taskId));
+            taskViewModel.AssignmentTasks = _mapper.Map<List<User>, List<UserResponse>>(await _userRepository.GetUsersByTaskId(taskId));
+            taskViewModel.Attackments = _mapper.Map<List<Attackment>, List<AttackmentResponse>>(await _attackmentRepository.GetAttackmentsByTaskId(taskId));
+            taskViewModel.LabelTasks = _mapper.Map<List<Label>, List<LabelResponse>>(await _labelRepository.GetLabelsByTaskIdAsync(taskId));
+            taskViewModel.ListTask = task.ListTask == null ? "" : task.ListTask.Name;
+            return taskViewModel;
         }
 
         public async Task Update(TaskRequest taskInput)

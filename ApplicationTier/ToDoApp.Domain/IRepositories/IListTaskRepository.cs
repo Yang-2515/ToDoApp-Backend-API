@@ -9,6 +9,6 @@ namespace ToDoApp.Domain.IRepositories
 {
     public interface IListTaskRepository : IRepository<ListTask>
     {
-        Task<IList<ListTask>> GetListTasksByBoardIdAsync(int boardId);
+        Task<List<ListTask>> GetListTasksByBoardIdAsync(int boardId);
     }
 }

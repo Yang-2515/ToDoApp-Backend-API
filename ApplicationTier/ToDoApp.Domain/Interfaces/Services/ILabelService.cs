@@ -12,8 +12,5 @@ namespace ToDoApp.Domain.Interfaces.Services
         Task<IList<LabelResponse>> GetAll();
         Task Add(LabelRequest label);
         Task Delete(int id);
-        Task<LabelResponse> GetOne(int labelId);
-        Task Update(LabelRequest label);
-        Task<List<LabelResponse>> GetLabelsByTaskIdAsync(int taskId);
     }
 }

@@ -67,26 +67,5 @@ namespace ToDoApp.Service
                 throw;
             }
         }
-
-        public async Task<IList<AttackmentResponse>> GetAttackmentsByTaskId(int taskId)
-        {
-            List<AttackmentResponse> attackmentResponses = new List<AttackmentResponse>();
-            var list = await _attackmentRepository.GetAttackmentsByTaskId(taskId);
-            foreach (var item in list)
-            {
-                var attackment = _mapper.Map<Attackment, AttackmentResponse>(item);
-                attackment.Task = item.Task == null ? "" : item.Task.Name;
-                attackmentResponses.Add(attackment);
-            }
-            return attackmentResponses;
-        }
-
-        public async Task<AttackmentResponse> GetOne(int attackmentId)
-        {
-            var attackment = await _attackmentRepository.FindAsync(attackmentId);
-            var attackmentResponses = _mapper.Map<Attackment, AttackmentResponse>(attackment);
-            attackmentResponses.Task = attackment.Task == null ? "" : attackment.Task.Name;
-            return attackmentResponses;
-        }
     }
 }

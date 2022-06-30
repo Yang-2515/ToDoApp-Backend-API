@@ -20,7 +20,7 @@ namespace ToDoApp.Infrastructure.Repositories
             return await Entities.Where(c => c.IsDelete == false).ToListAsync();
         }
 
-        public async Task<IList<Attackment>> GetAttackmentsByTaskId(int taskId)
+        public async Task<List<Attackment>> GetAttackmentsByTaskId(int taskId)
         {
             return await Entities.Where(c => c.IsDelete == false && c.TaskId == taskId).ToListAsync();
         }

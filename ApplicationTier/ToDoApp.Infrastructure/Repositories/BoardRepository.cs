@@ -25,7 +25,7 @@ namespace ToDoApp.Infrastructure.Repositories
 
         public async Task<IList<Board>> GetBoardsByManageId(int manageId)
         {
-            return await Entities.Where(c => c.ManageId == manageId).ToListAsync();
+            return await Entities.Where(c => c.ManageId == manageId && c.IsDelete == false).ToListAsync();
         }
 
         public async Task<List<Board>> GetBoardsByUserIdAsync(int userId)

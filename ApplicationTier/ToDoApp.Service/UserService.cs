@@ -7,6 +7,7 @@ using ToDoApp.Domain.Entities;
 using ToDoApp.Domain.Interfaces;
 using ToDoApp.Domain.Interfaces.Services;
 using ToDoApp.Domain.IRepositories;
+using ToDoApp.Domain.Models.Board;
 using ToDoApp.Domain.Models.User;
 using Task = System.Threading.Tasks.Task;
 
@@ -17,12 +18,15 @@ namespace ToDoApp.Service
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserRepository _userRepository;
+        private readonly IBoardRepository _boardRepository;
         public UserService(IUnitOfWork unitOfWork,
             IUserRepository userRepository,
+            IBoardRepository boardRepository,
             IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _userRepository = userRepository;
+            _boardRepository = boardRepository;
             _mapper = mapper;
         }
 
@@ -31,9 +35,13 @@ namespace ToDoApp.Service
             return _mapper.Map<IList<User>, IList<UserResponse>>(await _userRepository.GetAllAsync());
         }
 
-        public async Task<User> GetOne(int userId)
+        public async Task<UserViewModel> GetOne(int userId)
         {
-            return await _userRepository.FindAsync(userId);
+            UserViewModel userViewModel = new UserViewModel();
+            var user = await _userRepository.FindAsync(userId);
+            userViewModel.User = _mapper.Map<User, UserResponse>(user);
+            userViewModel.Boards = _mapper.Map < List<Board>, List<BoardDetail>>(await _boardRepository.GetBoardsByUserIdAsync(userId));
+            return userViewModel;
         }
 
         public async Task Update(UserRequest userInput)

@@ -12,7 +12,7 @@ namespace ToDoApp.Domain.IRepositories
 {
     public interface ITaskRepository : IRepository<TaskEntity>
     {
-        Task<IList<TaskEntity>> GetSubTasksByTaskIdAsync(int taskId);
-        Task<IList<TaskEntity>> GetTasksByListTaskIdAsync(int listTaskId);
+        Task<List<TaskEntity>> GetSubTasksByTaskIdAsync(int taskId);
+        Task<List<TaskEntity>> GetTasksByListTaskIdAsync(int listTaskId);
     }
 }

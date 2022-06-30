@@ -22,7 +22,7 @@ namespace ToDoApp.Infrastructure.Repositories
         }
         public async Task<TaskLabel> FindTaskLabelByTaskIdAndLabelId(int taskId, int labelId)
         {
-            return await Entities.FirstOrDefaultAsync(c => c.TaskId == taskId && c.LabelId == labelId);
+            return await Entities.FirstOrDefaultAsync(c => c.TaskId == taskId && c.LabelId == labelId && c.IsDelete == false);
         }
     }
 }

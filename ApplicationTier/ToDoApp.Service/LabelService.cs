@@ -30,33 +30,6 @@ namespace ToDoApp.Service
             return _mapper.Map<IList<Label>, IList<LabelResponse>>(await _labelRepository.GetAllAsync());
         }
 
-        public async Task<LabelResponse> GetOne(int labelId)
-        {
-            return _mapper.Map<Label, LabelResponse>(await _labelRepository.FindAsync(labelId));
-        }
-
-        public async Task Update(LabelRequest labelInput)
-        {
-            try
-            {
-                await _unitOfWork.BeginTransaction();
-
-                var label = await _labelRepository.FindAsync(labelInput.Id);
-                if (label == null)
-                    throw new KeyNotFoundException();
-
-                label.Name = labelInput.Name;
-                label.Color = labelInput.Color;
-
-                await _unitOfWork.CommitTransaction();
-            }
-            catch (Exception)
-            {
-                await _unitOfWork.RollbackTransaction();
-                throw;
-            }
-        }
-
         public async Task Add(LabelRequest labelInput)
         {
             try
@@ -98,11 +71,6 @@ namespace ToDoApp.Service
                 await _unitOfWork.RollbackTransaction();
                 throw;
             }
-        }
-
-        public async Task<List<LabelResponse>> GetLabelsByTaskIdAsync(int taskId)
-        {
-            return _mapper.Map<List<Label>, List<LabelResponse>>(await _labelRepository.GetLabelsByTaskIdAsync(taskId));
         }
     }
 }

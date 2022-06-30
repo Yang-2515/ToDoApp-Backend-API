@@ -11,10 +11,9 @@ namespace ToDoApp.Domain.Interfaces.Services
     public interface IListTaskService
     {
         Task Delete(int boardId);
-        Task<ListTaskResponse> GetOne(int listTaskId);
+        Task<ListTaskViewModel> GetOne(int listTaskId);
         Task<IList<ListTaskResponse>> GetAll();
         Task Update(ListTaskRequest listTask);
         Task Add(ListTaskRequest listTask);
-        Task<IList<ListTaskResponse>> GetListTasksByBoardIdAsync(int boardId);
     }
 }

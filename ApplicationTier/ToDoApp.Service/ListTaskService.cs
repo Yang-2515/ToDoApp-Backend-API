@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ToDoApp.Domain.Entities;
@@ -8,7 +9,9 @@ using ToDoApp.Domain.Interfaces;
 using ToDoApp.Domain.Interfaces.Services;
 using ToDoApp.Domain.IRepositories;
 using ToDoApp.Domain.Models.ListTask;
+using ToDoApp.Domain.Models.Task;
 using Task = System.Threading.Tasks.Task;
+using TaskEntity = ToDoApp.Domain.Entities.Task;
 
 namespace ToDoApp.Service
 {
@@ -16,13 +19,19 @@ namespace ToDoApp.Service
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IListTaskRepository _listTaskRepository;
+        private readonly ITaskRepository _taskRepository;
+        private readonly IAttackmentRepository _attackmentRepository;
         private readonly IMapper _mapper;
         public ListTaskService(IUnitOfWork unitOfWork,
             IListTaskRepository listTaskRepository,
+            ITaskRepository taskRepository,
+            IAttackmentRepository attackmentRepository,
             IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _listTaskRepository = listTaskRepository;
+            _taskRepository = taskRepository;
+            _attackmentRepository = attackmentRepository;
             _mapper = mapper;
         }
         public async Task Add(ListTaskRequest listTaskInput)
@@ -94,12 +103,19 @@ namespace ToDoApp.Service
             return listTaskResponses;
         }
 
-        public async Task<ListTaskResponse> GetOne(int listTaskId)
+        public async Task<ListTaskViewModel> GetOne(int listTaskId)
         {
+            ListTaskViewModel listTaskViewModel = new ListTaskViewModel();
             var listTask = await _listTaskRepository.FindAsync(listTaskId);
-            var listTaskResponse = _mapper.Map<ListTask, ListTaskResponse>(listTask);
-            listTaskResponse.Board = listTask.Board == null ? "" : listTask.Board.Name;
-            return listTaskResponse;
+            listTaskViewModel.ListTask = _mapper.Map<ListTask, ListTaskResponse>(listTask);
+            listTaskViewModel.ListTask.Board = listTask.Board == null ? "" : listTask.Board.Name;
+            listTaskViewModel.Tasks = _mapper.Map<List<TaskEntity>, List<TaskDetail>>(await _taskRepository.GetTasksByListTaskIdAsync(listTaskId));
+            foreach(TaskDetail task in listTaskViewModel.Tasks)
+            {
+                task.SubTasksCount = (await _taskRepository.GetSubTasksByTaskIdAsync(task.Id)).Count();
+                task.AttackmentsCount = (await _attackmentRepository.GetAttackmentsByTaskId(task.Id)).Count();
+            }
+            return listTaskViewModel;
         }
 
         public async Task Update(ListTaskRequest listTaskInput)

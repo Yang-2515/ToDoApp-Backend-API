@@ -30,8 +30,10 @@ namespace ToDoApp.Service
             CreateMap<AssignmentRequest, Assignment>();
             CreateMap<AssignmentRequest, AssignmentResponse>();
             CreateMap<Task, TaskResponse>();
+            CreateMap<Task, TaskDetail>();
             CreateMap<TaskRequest, Task>();
             CreateMap<TaskRequest, TaskResponse>();
+            CreateMap<Task, TaskViewModel>();
             CreateMap<TaskLabel, TaskLabelResponse>();
             CreateMap<TaskLabelRequest, TaskLabel>();
             CreateMap<TaskLabelRequest, TaskLabelResponse>();
@@ -41,7 +43,9 @@ namespace ToDoApp.Service
             CreateMap<ListTask, ListTaskResponse>();
             CreateMap<ListTaskRequest, ListTask>();
             CreateMap<ListTaskRequest, ListTaskResponse>();
+            CreateMap<ListTask, ListTaskDetail>();
             CreateMap<Board, BoardResponse>();
+            CreateMap<Board, BoardDetail>();
             CreateMap<BoardRequest, Board>();
             CreateMap<BoardRequest, BoardResponse>();
             CreateMap<BoardMember, BoardMemberResponse>();
